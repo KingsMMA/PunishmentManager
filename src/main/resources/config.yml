@@ -1,0 +1,8 @@
+messages:
+  kick:
+    sender:
+      with-reason: "<red>You have kicked <white><0></white> for <white><1></white>!"
+      without-reason: "<red>You have kicked <white><0></white>!"
+    receiver:
+        with-reason: "<red>You have been kicked by <white><0></white> for <white><1></white>!"
+        without-reason: "<red>You have been kicked by <white><0></white>!"
