@@ -1,8 +1,29 @@
 messages:
-  kick:
-    sender:
-      with-reason: "<red>You have kicked <white><0></white> for <white><1></white>!"
-      without-reason: "<red>You have kicked <white><0></white>!"
-    receiver:
-        with-reason: "<red>You have been kicked by <white><0></white> for <white><1></white>!"
-        without-reason: "<red>You have been kicked by <white><0></white>!"
+    kick:
+        failed:
+            self: "<red>You cannot kick yourself!"
+        sender:
+            with-reason: "<red>You have kicked <white><0></white> for <white><1></white>!"
+            without-reason: "<red>You have kicked <white><0></white>!"
+        receiver:
+            with-reason: "<red>You have been kicked by <white><0></white> for <white><1></white>!"
+            without-reason: "<red>You have been kicked by <white><0></white>!"
+    mute:
+        failed:
+            already-muted: "<red><0> is already muted!"
+            self: "<red>You cannot mute yourself!"
+        sender:
+            permanent:
+                with-reason: "<red>You have muted <white><0></white> for <white><1></white>!"
+                without-reason: "<red>You have muted <white><0></white>!"
+        receiver:
+            permanent:
+                with-reason:
+                    command: "<red>You have been muted by <white><0></white> for <white><1></white>."
+                    chat: "<red>You are currently muted by <white><0></white> for <white><1></white>."
+                without-reason:
+                    command: "<red>You have been muted by <white><0></white>."
+                    chat: "<red>You are currently muted by <white><0></white>."
+    unmute:
+        failed:
+            not-muted: "<red><0> is not muted!"
