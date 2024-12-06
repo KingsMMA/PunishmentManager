@@ -24,11 +24,10 @@ object MuteCommand {
             return sender.sendMini(
                 "messages.mute.failed.self".configString("<red>You cannot mute yourself!"))
 
-        val userData = MongoDB.collection("users")
-        val userDocument: UserData? = MongoSerializable.fromDocument<UserData>(
-            userData
-                .find(eq("uuid", target.uniqueId.toString()))
-                .firstOrNull())
+        val userData = MongoDB.collection<UserData>("users")
+        val userDocument: UserData? = userData
+                .findByIdSync(target.uniqueId.toString())
+                .firstOrNull()
         val user: UserData = userDocument ?: UserData(target.uniqueId, mutableListOf(), mutableListOf())
         if (user.mutes.any { it.active })
             return sender.sendMini(
@@ -48,7 +47,7 @@ object MuteCommand {
         ActivePunishments.addMute(target.uniqueId, muteData)
 
         user.mutes.add(muteData)
-        userData.replaceOne(eq("uuid", target.uniqueId.toString()), user.toDocument(), ReplaceOptions().upsert(true))
+        user.saveSync()
 
         if (reason != null) {
             sender.sendMini(
