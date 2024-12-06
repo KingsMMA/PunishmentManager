@@ -1,6 +1,6 @@
 package dev.kingrabbit.punishmentManager.data
 
-import dev.kingrabbit.punishmentManager.kotlin.MongoSerializable
+import gg.flyte.twilight.data.MongoSerializable
 import java.util.UUID
 
 class MuteData(
