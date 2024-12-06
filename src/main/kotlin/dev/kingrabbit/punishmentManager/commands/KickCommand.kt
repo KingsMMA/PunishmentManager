@@ -19,13 +19,13 @@ object KickCommand {
         if (reason != null) {
             target.kick(
                 "messages.kick.receiver.with-reason".configString("<red>You have been kicked.").toMini(sender.name(), reason.toMini()))
-            commandSendMini(
+            sender.sendMini(
                 "messages.kick.sender.with-reason".configString(
                     "<red>You have kicked <white><0></white> for <white><1></white>!"),
                 target.name(), reason.toMini())
         } else {
             target.kick("messages.kick.receiver.without-reason".configString("<red>You have been kicked.").toMini(sender.name()))
-            commandSendMini(
+            sender.sendMini(
                 "messages.kick.sender.without-reason".configString(
                     "<red>You have kicked <white><0></white>!"),
                 target.name())

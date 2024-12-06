@@ -21,7 +21,7 @@ object MuteCommand {
     @CommandPermission("punishmentManager.unmute")
     fun mute(sender: CommandSender, target: OfflinePlayer, @Optional reason: String?) {
         if (sender == target)
-            return commandSendMini(
+            return sender.sendMini(
                 "messages.mute.failed.self".configString("<red>You cannot mute yourself!"))
 
         val userData = MongoDB.collection("users")
@@ -31,7 +31,7 @@ object MuteCommand {
                 .firstOrNull())
         val user: UserData = userDocument ?: UserData(target.uniqueId, mutableListOf(), mutableListOf())
         if (user.mutes.any { it.active })
-            return commandSendMini(
+            return sender.sendMini(
                 "messages.mute.failed.already-muted".configString("<red><0> is already muted!"),
                 target.name!!.toMini()
             )
@@ -51,7 +51,7 @@ object MuteCommand {
         userData.replaceOne(eq("uuid", target.uniqueId.toString()), user.toDocument(), ReplaceOptions().upsert(true))
 
         if (reason != null) {
-            commandSendMini(
+            sender.sendMini(
                 "messages.mute.sender.permanent.with-reason".configString("<red>You have muted <white><0></white> for <white><1></white>!"),
                 target.name!!.toMini(),
                 reason.toMini()
@@ -62,7 +62,7 @@ object MuteCommand {
                 reason.toMini()
             )
         } else {
-            commandSendMini(
+            sender.sendMini(
                 "messages.mute.sender.permanent.without-reason".configString("<red>You have muted <white><0></white>!"),
                 target.name!!.toMini()
             )
