@@ -14,7 +14,7 @@ object KickCommand {
     @CommandPermission("punishmentManager.kick")
     fun kick(sender: CommandSender, target: Player, @Optional reason: String?) {
         if (sender == target)
-            commandError("You can't kick yourself!")
+            return sender.sendMini("<red>You can't kick yourself!")
 
         if (reason != null) {
             target.kick(
