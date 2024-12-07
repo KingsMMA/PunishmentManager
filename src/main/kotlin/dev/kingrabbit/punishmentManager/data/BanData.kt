@@ -4,10 +4,10 @@ import dev.kingrabbit.punishmentManager.kotlin.MongoSerializable
 import java.util.UUID
 
 class BanData(
-    val reason: String,
+    val reason: String?,
     val duration: Long,
-    val mutedBy: UUID,
-    val mutedAt: Long,
+    val bannedBy: UUID,
+    val bannedAt: Long,
     var active: Boolean,
     var removedReason: String?,
 ) : MongoSerializable {

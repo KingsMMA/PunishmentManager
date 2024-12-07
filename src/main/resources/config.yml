@@ -34,9 +34,39 @@ messages:
                 without-reason:
                     command: "<red>You have been muted by <white><0></white>. This expires in <white><1></white>."
                     chat: "<red>You are currently muted by <white><0></white>. This expires in <white><1></white>."
-                expired: "<red>Your mute has expired!"
+                expired: "<green>Your mute has expired!"
     unmute:
         failed:
             not-muted: "<red><0> is not muted!"
         sender: "<green>You have unmuted <white><0></white>!"
         receiver: "<green>You have been unmuted by <white><0></white>!"
+    ban:
+        failed:
+            already-banned: "<red><0> is already banned!"
+            self: "<red>You cannot ban yourself!"
+        sender:
+            permanent:
+                with-reason: "<red>You have banned <white><0></white> for <white><1></white>!"
+                without-reason: "<red>You have banned <white><0></white>!"
+            temporary:
+                with-reason: "<red>You have banned <white><0></white> for <white><1></white> for <white><2></white>!"
+                without-reason: "<red>You have banned <white><0></white> for <white><1></white>!"
+        receiver:
+            permanent:
+                with-reason:
+                    command: "<red>You have been banned by <white><0></white> for <white><1></white>."
+                    login: "<red>You are currently banned by <white><0></white> for <white><1></white>."
+                without-reason:
+                    command: "<red>You have been banned by <white><0></white>."
+                    login: "<red>You are currently banned by <white><0></white>."
+            temporary:
+                with-reason:
+                    command: "<red>You have been banned by <white><0></white> for <white><1></white>.\nThis expires in <white><2></white>."
+                    login: "<red>You are currently banned by <white><0></white> for <white><1></white>.\nThis expires in <white><2></white>."
+                without-reason:
+                    command: "<red>You have been banned by <white><0></white>.\nThis expires in <white><1></white>."
+                    login: "<red>You are currently banned by <white><0></white>.\nThis expires in <white><1></white>."
+    unban:
+        failed:
+            not-banned: "<red><0> is not banned!"
+        sender: "<green>You have unbanned <white><0></white>!"

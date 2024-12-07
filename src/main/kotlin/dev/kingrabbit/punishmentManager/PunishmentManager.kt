@@ -1,10 +1,13 @@
 package dev.kingrabbit.punishmentManager
 
 import com.mongodb.client.model.Filters.eq
-import dev.kingrabbit.punishmentManager.commands.KickCommand
-import dev.kingrabbit.punishmentManager.commands.MuteCommand
-import dev.kingrabbit.punishmentManager.commands.TempMuteCommand
-import dev.kingrabbit.punishmentManager.commands.UnmuteCommand
+import dev.kingrabbit.punishmentManager.commands.ban.BanCommand
+import dev.kingrabbit.punishmentManager.commands.ban.TempBanCommand
+import dev.kingrabbit.punishmentManager.commands.ban.UnbanCommand
+import dev.kingrabbit.punishmentManager.commands.kick.KickCommand
+import dev.kingrabbit.punishmentManager.commands.mute.MuteCommand
+import dev.kingrabbit.punishmentManager.commands.mute.TempMuteCommand
+import dev.kingrabbit.punishmentManager.commands.mute.UnmuteCommand
 import dev.kingrabbit.punishmentManager.config.ConfigManager
 import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.data.DurationParameterType
@@ -13,6 +16,7 @@ import dev.kingrabbit.punishmentManager.kotlin.MongoSerializable
 import dev.kingrabbit.punishmentManager.kotlin.configString
 import dev.kingrabbit.punishmentManager.kotlin.sendMini
 import dev.kingrabbit.punishmentManager.listeners.ChatListener
+import dev.kingrabbit.punishmentManager.listeners.LoginListener
 import gg.flyte.twilight.data.MongoDB
 import gg.flyte.twilight.scheduler.delay
 import gg.flyte.twilight.time.TimeUnit
@@ -42,12 +46,16 @@ class PunishmentManager : JavaPlugin() {
             KickCommand,
             TempMuteCommand,
             MuteCommand,
-            UnmuteCommand
+            UnmuteCommand,
+            TempBanCommand,
+            BanCommand,
+            UnbanCommand
         )
 
         ConfigManager.initialise(config, this)
 
         Bukkit.getPluginManager().registerEvents(ChatListener, this)
+        Bukkit.getPluginManager().registerEvents(LoginListener, this)
 
         MongoDB.collection("users").find()
             .forEach { document: Document ->
