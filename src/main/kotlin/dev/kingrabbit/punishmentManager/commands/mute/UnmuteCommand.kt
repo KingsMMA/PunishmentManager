@@ -1,4 +1,4 @@
-package dev.kingrabbit.punishmentManager.commands
+package dev.kingrabbit.punishmentManager.commands.mute
 
 import com.mongodb.client.model.Filters.eq
 import dev.kingrabbit.punishmentManager.ActivePunishments
@@ -7,9 +7,7 @@ import dev.kingrabbit.punishmentManager.kotlin.*
 import gg.flyte.twilight.data.MongoDB
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 import revxrsal.commands.annotation.Command
-import revxrsal.commands.annotation.Optional
 import revxrsal.commands.bukkit.annotation.CommandPermission
 
 object UnmuteCommand {

@@ -1,4 +1,4 @@
-package dev.kingrabbit.punishmentManager.commands
+package dev.kingrabbit.punishmentManager.commands.kick
 
 import dev.kingrabbit.punishmentManager.kotlin.*
 import org.bukkit.command.CommandSender

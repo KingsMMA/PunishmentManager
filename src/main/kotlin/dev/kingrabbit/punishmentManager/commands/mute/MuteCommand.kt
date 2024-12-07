@@ -1,9 +1,8 @@
-package dev.kingrabbit.punishmentManager.commands
+package dev.kingrabbit.punishmentManager.commands.mute
 
 import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.model.ReplaceOptions
 import dev.kingrabbit.punishmentManager.ActivePunishments
-import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.data.MuteData
 import dev.kingrabbit.punishmentManager.data.UserData
 import dev.kingrabbit.punishmentManager.kotlin.*
@@ -16,11 +15,11 @@ import revxrsal.commands.annotation.Optional
 import revxrsal.commands.bukkit.annotation.CommandPermission
 import java.util.*
 
-object TempMuteCommand {
+object MuteCommand {
 
-    @Command("tempmute")
-    @CommandPermission("punishmentManager.tempmute")
-    fun mute(sender: CommandSender, target: OfflinePlayer, duration: Duration, @Optional reason: String?) {
+    @Command("mute")
+    @CommandPermission("punishmentManager.mute")
+    fun mute(sender: CommandSender, target: OfflinePlayer, @Optional reason: String?) {
         if (sender == target)
             return sender.sendMini(
                 "messages.mute.failed.self".configString("<red>You cannot mute yourself!"))
@@ -39,7 +38,7 @@ object TempMuteCommand {
 
         val muteData = MuteData(
             reason,
-            duration.toMillis(),
+            -1,
             if (sender is Player) sender.uniqueId else UUID(0, 0),
             System.currentTimeMillis(),
             true,
@@ -53,27 +52,23 @@ object TempMuteCommand {
 
         if (reason != null) {
             sender.sendMini(
-                "messages.mute.sender.temporary.with-reason".configString("<red>You have muted <white><0></white> for <white><1></white> for <white><2></white>!"),
+                "messages.mute.sender.permanent.with-reason".configString("<red>You have muted <white><0></white> for <white><1></white>!"),
                 target.name!!.toMini(),
-                reason.toMini(),
-                duration.toString().toMini()
+                reason.toMini()
             )
             target.player?.sendMini(
-                "messages.mute.receiver.temporary.with-reason.command".configString("<red>You have been muted by <white><0></white> for <white><1></white>. This expires in <white><2></white>."),
+                "messages.mute.receiver.permanent.with-reason.command".configString("<red>You have been muted by <white><0></white> for <white><1></white>."),
                 sender.name(),
-                reason.toMini(),
-                duration.toString().toMini()
+                reason.toMini()
             )
         } else {
             sender.sendMini(
-                "messages.mute.sender.temporary.without-reason".configString("<red>You have muted <white><0></white> for <white><1></white>!"),
-                target.name!!.toMini(),
-                duration.toString().toMini()
+                "messages.mute.sender.permanent.without-reason".configString("<red>You have muted <white><0></white>!"),
+                target.name!!.toMini()
             )
             target.player?.sendMini(
-                "messages.mute.receiver.temporary.without-reason.command".configString("<red>You have been muted by <white><0></white>. This expires in <white><1></white>."),
-                sender.name(),
-                duration.toString().toMini()
+                "messages.mute.receiver.permanent.without-reason.command".configString("<red>You have been muted by <white><0></white>."),
+                sender.name()
             )
         }
 
