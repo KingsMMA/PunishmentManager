@@ -1,4 +1,16 @@
 messages:
+    history:
+        no-history: "<green>There is no history for <white><0></white>!"
+        history:
+            header: "<gray>History for <white><0></white>:"
+            entry:
+                kick: "<gray>  - Kicked by <white><0></white> at <white><1></white>. Reason: <white><2></white>."
+                mute:
+                    permanent: "<gray>  - Muted by <white><0></white> at <white><1></white>. Reason: <white><2></white>."
+                    temporary: "<gray>  - Muted by <white><0></white> at <white><1></white> for <white><2></white>. Reason: <white><3></white>."
+                ban:
+                    permanent: "<gray>  - Banned by <white><0></white> at <white><1></white>. Reason: <white><2></white>."
+                    temporary: "<gray>  - Banned by <white><0></white> at <white><1></white> for <white><2></white>. Reason: <white><3></white>."
     kick:
         failed:
             self: "<red>You cannot kick yourself!"

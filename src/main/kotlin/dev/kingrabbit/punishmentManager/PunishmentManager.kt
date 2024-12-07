@@ -4,6 +4,7 @@ import com.mongodb.client.model.Filters.eq
 import dev.kingrabbit.punishmentManager.commands.ban.BanCommand
 import dev.kingrabbit.punishmentManager.commands.ban.TempBanCommand
 import dev.kingrabbit.punishmentManager.commands.ban.UnbanCommand
+import dev.kingrabbit.punishmentManager.commands.history.HistoryCommand
 import dev.kingrabbit.punishmentManager.commands.kick.KickCommand
 import dev.kingrabbit.punishmentManager.commands.mute.MuteCommand
 import dev.kingrabbit.punishmentManager.commands.mute.TempMuteCommand
@@ -43,6 +44,7 @@ class PunishmentManager : JavaPlugin() {
             }
             .build()
         commandHandler.register(
+            HistoryCommand,
             KickCommand,
             TempMuteCommand,
             MuteCommand,

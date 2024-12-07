@@ -5,6 +5,7 @@ import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.kotlin.configString
 import dev.kingrabbit.punishmentManager.kotlin.sendMini
 import dev.kingrabbit.punishmentManager.kotlin.toMini
+import dev.kingrabbit.punishmentManager.kotlin.toName
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -19,7 +20,7 @@ object ChatListener : Listener {
         if (ActivePunishments.isMuted(player.uniqueId)) {
             event.isCancelled = true
             val muteData = ActivePunishments.getMute(player.uniqueId)!!
-            val mutedBy = Bukkit.getOfflinePlayer(muteData.mutedBy).name?.toMini() ?: "CONSOLE".toMini()
+            val mutedBy = muteData.mutedBy.toName().toMini()
             if (muteData.duration != -1L) {
                 if (muteData.reason != null) {
                     player.sendMini(

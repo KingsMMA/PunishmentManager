@@ -25,7 +25,7 @@ object UnmuteCommand {
             ?: return sender.sendMini("messages.unmute.failed.not-muted".configString("<red><0> is not muted!"))
 
         activeMute.active = false
-        activeMute.removedReason = "Unmuted by ${sender.name()}"
+        activeMute.removedReason = "Unmuted by ${sender.name}"
         userData.toDocument().also {
             MongoDB.collection("users").replaceOne(eq("uuid", target.uniqueId.toString()), it)
         }

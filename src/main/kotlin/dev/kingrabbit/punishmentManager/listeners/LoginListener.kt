@@ -6,6 +6,7 @@ import dev.kingrabbit.punishmentManager.data.UserData
 import dev.kingrabbit.punishmentManager.kotlin.MongoSerializable
 import dev.kingrabbit.punishmentManager.kotlin.configString
 import dev.kingrabbit.punishmentManager.kotlin.toMini
+import dev.kingrabbit.punishmentManager.kotlin.toName
 import gg.flyte.twilight.data.MongoDB
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -24,7 +25,7 @@ object LoginListener : Listener {
 
         val activeBan = userData.bans.find { it.active }
             ?: return
-        val bannedBy = Bukkit.getOfflinePlayer(activeBan.bannedBy).name?.toMini() ?: "CONSOLE".toMini()
+        val bannedBy = activeBan.bannedBy.toName().toMini()
 
         if (activeBan.duration == -1L) {
             if (activeBan.reason == null) {

@@ -25,7 +25,7 @@ object UnbanCommand {
             ?: return sender.sendMini("messages.unban.failed.not-banned".configString("<red><0> is not banned!"))
 
         activeBan.active = false
-        activeBan.removedReason = "Ubanned by ${sender.name()}"
+        activeBan.removedReason = "Unbanned by ${sender.name}"
         userData.toDocument().also {
             MongoDB.collection("users").replaceOne(eq("uuid", target.uniqueId.toString()), it)
         }
