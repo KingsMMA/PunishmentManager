@@ -30,7 +30,7 @@ object TempBanCommand {
             userData
                 .find(eq("uuid", target.uniqueId.toString()))
                 .firstOrNull())
-        val user: UserData = userDocument ?: UserData(target.uniqueId, mutableListOf(), mutableListOf())
+        val user: UserData = userDocument ?: UserData(target.uniqueId, mutableListOf(), mutableListOf(), mutableListOf())
         if (user.bans.any { it.active })
             return sender.sendMini(
                 "messages.ban.failed.already-banned".configString("<red><0> is already banned!"),
