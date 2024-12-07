@@ -1,3 +1,4 @@
+update-frequency: 1
 messages:
     history:
         no-history: "<green>There is no history for <white><0></white>!"

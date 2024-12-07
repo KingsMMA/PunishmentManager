@@ -14,6 +14,7 @@ import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.data.DurationParameterType
 import dev.kingrabbit.punishmentManager.data.UserData
 import dev.kingrabbit.punishmentManager.kotlin.MongoSerializable
+import dev.kingrabbit.punishmentManager.kotlin.config
 import dev.kingrabbit.punishmentManager.kotlin.configString
 import dev.kingrabbit.punishmentManager.kotlin.sendMini
 import dev.kingrabbit.punishmentManager.listeners.ChatListener
@@ -130,7 +131,7 @@ class PunishmentManager : JavaPlugin() {
             }
         }
 
-        delay(1, TimeUnit.SECONDS, true) {
+        delay("update-frequency".config(1) as Int, TimeUnit.SECONDS, true) {
             checkExpiredPunishments()
         }
     }
