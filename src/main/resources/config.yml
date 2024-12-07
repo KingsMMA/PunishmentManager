@@ -38,3 +38,5 @@ messages:
     unmute:
         failed:
             not-muted: "<red><0> is not muted!"
+        sender: "<green>You have unmuted <white><0></white>!"
+        receiver: "<green>You have been unmuted by <white><0></white>!"

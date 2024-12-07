@@ -4,6 +4,7 @@ import com.mongodb.client.model.Filters.eq
 import dev.kingrabbit.punishmentManager.commands.KickCommand
 import dev.kingrabbit.punishmentManager.commands.MuteCommand
 import dev.kingrabbit.punishmentManager.commands.TempMuteCommand
+import dev.kingrabbit.punishmentManager.commands.UnmuteCommand
 import dev.kingrabbit.punishmentManager.config.ConfigManager
 import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.data.DurationParameterType
@@ -13,9 +14,7 @@ import dev.kingrabbit.punishmentManager.kotlin.configString
 import dev.kingrabbit.punishmentManager.kotlin.sendMini
 import dev.kingrabbit.punishmentManager.listeners.ChatListener
 import gg.flyte.twilight.data.MongoDB
-import gg.flyte.twilight.event.event
 import gg.flyte.twilight.scheduler.delay
-import gg.flyte.twilight.scheduler.repeat
 import gg.flyte.twilight.time.TimeUnit
 import gg.flyte.twilight.twilight
 import org.bson.Document
@@ -42,7 +41,8 @@ class PunishmentManager : JavaPlugin() {
         commandHandler.register(
             KickCommand,
             TempMuteCommand,
-            MuteCommand
+            MuteCommand,
+            UnmuteCommand
         )
 
         ConfigManager.initialise(config, this)
@@ -87,14 +87,36 @@ class PunishmentManager : JavaPlugin() {
                         .find(eq("uuid", uuid.toString()))
                         .firstOrNull())
                 val user: UserData = userDocument ?: UserData(uuid, mutableListOf(), mutableListOf())
-                val activeMute = user.mutes.find { it.active }
-                activeMute?.active = false
-                activeMute?.removedReason = "Expired"
+                val mongoMute = user.mutes.find { it.active }
+                mongoMute?.active = false
+                mongoMute?.removedReason = "Expired"
                 userData.replaceOne(eq("uuid", uuid.toString()), user.toDocument())
 
                 val player = Bukkit.getOfflinePlayer(uuid)
                 player.player?.sendMini(
-                    "messages.mute.receiver.expired".configString("<red>Your mute has expired!"))
+                    "messages.mute.receiver.temporary.expired".configString("<red>Your mute has expired!"))
+            }
+        }
+
+        for ((uuid, activeBan) in ActivePunishments.activeBans) {
+            if (activeBan.duration == -1L) {
+                continue
+            }
+            if (activeBan.bannedAt + activeBan.duration <= System.currentTimeMillis()) {
+                activeBan.active = false
+                activeBan.removedReason = "Expired"
+
+                ActivePunishments.removeBan(uuid)
+                val userData = MongoDB.collection("users")
+                val userDocument: UserData? = MongoSerializable.fromDocument<UserData>(
+                    userData
+                        .find(eq("uuid", uuid.toString()))
+                        .firstOrNull())
+                val user: UserData = userDocument ?: UserData(uuid, mutableListOf(), mutableListOf())
+                val mongoBan = user.bans.find { it.active }
+                mongoBan?.active = false
+                mongoBan?.removedReason = "Expired"
+                userData.replaceOne(eq("uuid", uuid.toString()), user.toDocument())
             }
         }
 
