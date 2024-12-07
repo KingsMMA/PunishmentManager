@@ -16,6 +16,9 @@ messages:
             permanent:
                 with-reason: "<red>You have muted <white><0></white> for <white><1></white>!"
                 without-reason: "<red>You have muted <white><0></white>!"
+            temporary:
+                with-reason: "<red>You have muted <white><0></white> for <white><1></white> for <white><2></white>!"
+                without-reason: "<red>You have muted <white><0></white> for <white><1></white>!"
         receiver:
             permanent:
                 with-reason:
@@ -24,6 +27,14 @@ messages:
                 without-reason:
                     command: "<red>You have been muted by <white><0></white>."
                     chat: "<red>You are currently muted by <white><0></white>."
+            temporary:
+                with-reason:
+                    command: "<red>You have been muted by <white><0></white> for <white><1></white>. This expires in <white><2></white>."
+                    chat: "<red>You are currently muted by <white><0></white> for <white><1></white>. This expires in <white><2></white>."
+                without-reason:
+                    command: "<red>You have been muted by <white><0></white>. This expires in <white><1></white>."
+                    chat: "<red>You are currently muted by <white><0></white>. This expires in <white><1></white>."
+                expired: "<red>Your mute has expired!"
     unmute:
         failed:
             not-muted: "<red><0> is not muted!"

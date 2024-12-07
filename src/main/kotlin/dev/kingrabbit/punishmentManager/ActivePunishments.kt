@@ -5,8 +5,8 @@ import dev.kingrabbit.punishmentManager.data.MuteData
 import java.util.*
 
 object ActivePunishments {
-    private val activeMutes = mutableMapOf<UUID, MuteData>()
-    private val activeBans = mutableMapOf<UUID, BanData>()
+    val activeMutes = mutableMapOf<UUID, MuteData>()
+    val activeBans = mutableMapOf<UUID, BanData>()
 
     fun addMute(uuid: UUID, muteData: MuteData) {
         activeMutes[uuid] = muteData

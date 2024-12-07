@@ -3,7 +3,6 @@ package dev.kingrabbit.punishmentManager.commands
 import dev.kingrabbit.punishmentManager.kotlin.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.jetbrains.annotations.Nullable
 import revxrsal.commands.annotation.Command
 import revxrsal.commands.annotation.Optional
 import revxrsal.commands.bukkit.annotation.CommandPermission
@@ -14,7 +13,7 @@ object KickCommand {
     @CommandPermission("punishmentManager.kick")
     fun kick(sender: CommandSender, target: Player, @Optional reason: String?) {
         if (sender == target)
-            return sender.sendMini("<red>You can't kick yourself!")
+            return sender.sendMini("messages.kick.failed.self".configString("<red>You cannot kick yourself!"))
 
         if (reason != null) {
             target.kick(
