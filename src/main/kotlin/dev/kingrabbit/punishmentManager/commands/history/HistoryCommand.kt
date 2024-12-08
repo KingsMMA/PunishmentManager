@@ -127,9 +127,7 @@ object HistoryCommand {
                         itemName("<red>No history found".toMini())
                         lores(listOf("<gray>This player has no history.".toMini()))
                     }
-                }) {
-                    isCancelled = true
-                }
+                })
 
                 onClick {
                     isCancelled = true
