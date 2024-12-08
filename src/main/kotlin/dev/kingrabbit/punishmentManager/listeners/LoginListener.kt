@@ -1,6 +1,6 @@
 package dev.kingrabbit.punishmentManager.listeners
 
-import com.mongodb.client.model.Filters.eq
+import com.mongodb.client.model.Filters.*
 import com.mongodb.client.model.ReplaceOptions
 import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.data.UserData
@@ -18,7 +18,6 @@ object LoginListener : Listener {
 
     @EventHandler
     fun prelogin(event: AsyncPlayerPreLoginEvent) {
-        println(event.address.hostName)
 
         val userData = MongoDB.collection("users")
             .find(eq("uuid", event.uniqueId.toString()))
@@ -33,10 +32,40 @@ object LoginListener : Listener {
             }
         }
 
-        if (userData == null) return
+        val activeBan = userData?.bans?.find { it.active }
+        if (activeBan == null) {
+            val ipBans = MongoDB.collection("users")
+                .find(and(
+                    eq("bans.ip", true),
+                    eq("bans.active", true),
+                    `in`("ips", listOf(*(userData?.ips ?: emptyList()).toTypedArray(), event.address.hostName))
+                ))
 
-        val activeBan = userData.bans.find { it.active }
-            ?: return
+            val ipBan = ipBans
+                .firstOrNull()
+                ?.let { MongoSerializable.fromDocument(it) as UserData? }
+                ?.bans
+                ?.find { it.active }
+                ?: return
+
+            val bannedBy = ipBan.bannedBy.toName().toMini()
+            if (ipBan.reason == null) {
+                event.disallow(
+                    AsyncPlayerPreLoginEvent.Result.KICK_BANNED,
+                    "messages.ipban.receiver.without-reason.login".configString("<red>You are currently IP banned by <white><0></white>.")
+                        .toMini(bannedBy)
+                )
+            } else {
+                event.disallow(
+                    AsyncPlayerPreLoginEvent.Result.KICK_BANNED,
+                    "messages.ipban.receiver.with-reason.login".configString("<red>You are currently IP banned by <white><0></white> for <white><1></white>.")
+                        .toMini(bannedBy, ipBan.reason.toMini())
+                )
+            }
+
+            return
+        }
+
         val bannedBy = activeBan.bannedBy.toName().toMini()
 
         if (activeBan.duration == -1L) {

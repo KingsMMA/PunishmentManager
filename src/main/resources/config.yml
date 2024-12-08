@@ -79,6 +79,20 @@ messages:
                 without-reason:
                     command: "<red>You have been banned by <white><0></white>.\nThis expires in <white><1></white>."
                     login: "<red>You are currently banned by <white><0></white>.\nThis expires in <white><1></white>."
+    ipban:
+        failed:
+            already-banned: "<red><0> is already banned!"
+            self: "<red>You cannot ban yourself!"
+        sender:
+            with-reason: "<red>You have IP banned <white><0></white> for <white><1></white>!"
+            without-reason: "<red>You have IP banned <white><0></white>!"
+        receiver:
+            with-reason:
+                command: "<red>You have been banned by <white><0></white> for <white><1></white>."
+                login: "<red>You are currently IP banned by <white><0></white> for <white><1></white>."
+            without-reason:
+                command: "<red>You have been banned by <white><0></white>."
+                login: "<red>You are currently IP banned by <white><0></white>."
     unban:
         failed:
             not-banned: "<red><0> is not banned!"

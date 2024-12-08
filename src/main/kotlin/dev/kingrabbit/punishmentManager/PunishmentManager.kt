@@ -2,6 +2,7 @@ package dev.kingrabbit.punishmentManager
 
 import com.mongodb.client.model.Filters.eq
 import dev.kingrabbit.punishmentManager.commands.ban.BanCommand
+import dev.kingrabbit.punishmentManager.commands.ban.IpbanCommand
 import dev.kingrabbit.punishmentManager.commands.ban.TempBanCommand
 import dev.kingrabbit.punishmentManager.commands.ban.UnbanCommand
 import dev.kingrabbit.punishmentManager.commands.history.HistoryCommand
@@ -52,7 +53,8 @@ class PunishmentManager : JavaPlugin() {
             UnmuteCommand,
             TempBanCommand,
             BanCommand,
-            UnbanCommand
+            UnbanCommand,
+            IpbanCommand
         )
 
         ConfigManager.initialise(config, this)

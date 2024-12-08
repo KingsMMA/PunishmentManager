@@ -41,8 +41,9 @@ object BanCommand {
             -1,
             if (sender is Player) sender.uniqueId else UUID(0, 0),
             System.currentTimeMillis(),
-            true,
-            null
+            ip = false,
+            active = true,
+            removedReason = null
         )
 
         ActivePunishments.addBan(target.uniqueId, banData)
