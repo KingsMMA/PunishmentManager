@@ -40,7 +40,7 @@ object HistoryCommand {
         sender.sendMini("messages.history.header".configString("<gray>History for <white><0></white>:"), target.name!!.toMini())
 
         userData.kicks.forEach {
-            sender.sendMini("messages.history.kick".configString("<gray>  - Kicked by <white><0></white> for <white><1></white> at <white><2></white>.",),
+            sender.sendMini("messages.history.kick".configString("<gray>  - Kicked by <white><0></white> at <white><1></white>. Reason: <white><2></white>.",),
                 it.kickedBy.toName().toMini(),
                 Date(it.kickedAt).toMini(),
                 (it.reason ?: "No reason provided").toMini()
