@@ -11,5 +11,4 @@ class BanData(
     val ip: Boolean,
     var active: Boolean,
     var removedReason: String?,
-) : MongoSerializable {
-}
+) : MongoSerializable

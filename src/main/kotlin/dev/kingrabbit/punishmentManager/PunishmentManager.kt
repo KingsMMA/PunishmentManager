@@ -67,12 +67,12 @@ class PunishmentManager : JavaPlugin() {
                 run {
                     val userData = MongoSerializable.fromDocument<UserData>(document)
                     if (userData != null) {
-                        userData.mutes.forEach() { muteData ->
+                        userData.mutes.forEach { muteData ->
                             if (muteData.active) {
                                 ActivePunishments.addMute(userData.uuid, muteData)
                             }
                         }
-                        userData.bans.forEach() { banData ->
+                        userData.bans.forEach { banData ->
                             if (banData.active) {
                                 ActivePunishments.addBan(userData.uuid, banData)
                             }

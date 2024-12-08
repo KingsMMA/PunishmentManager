@@ -7,5 +7,4 @@ class KickData(
     val reason: String?,
     val kickedBy: UUID,
     val kickedAt: Long,
-) : MongoSerializable {
-}
+) : MongoSerializable

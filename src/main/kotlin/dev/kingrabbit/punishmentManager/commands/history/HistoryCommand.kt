@@ -7,16 +7,13 @@ import dev.kingrabbit.punishmentManager.data.UserData
 import dev.kingrabbit.punishmentManager.kotlin.*
 import gg.flyte.twilight.data.MongoDB
 import gg.flyte.twilight.extension.asString
-import gg.flyte.twilight.extension.enchant
 import gg.flyte.twilight.extension.glow
 import gg.flyte.twilight.gui.GUI.Companion.openInventory
 import gg.flyte.twilight.gui.gui
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes.itemStack
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack

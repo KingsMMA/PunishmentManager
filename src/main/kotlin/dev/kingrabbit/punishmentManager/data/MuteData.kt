@@ -10,5 +10,4 @@ class MuteData(
     val mutedAt: Long,
     var active: Boolean,
     var removedReason: String?,
-) : MongoSerializable {
-}
+) : MongoSerializable
