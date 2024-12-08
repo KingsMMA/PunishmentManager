@@ -37,7 +37,6 @@ class PunishmentManager : JavaPlugin() {
                 useDifferentEnvironments = false
             }
             mongo {}
-            nameCache {}
         }
 
         val commandHandler = BukkitLamp.builder(this)
