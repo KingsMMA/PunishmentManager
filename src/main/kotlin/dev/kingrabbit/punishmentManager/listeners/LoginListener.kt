@@ -17,6 +17,8 @@ object LoginListener : Listener {
 
     @EventHandler
     fun prelogin(event: AsyncPlayerPreLoginEvent) {
+        println(event.address.hostName)
+
         val userData = MongoDB.collection("users")
             .find(eq("uuid", event.uniqueId.toString()))
             .firstOrNull()

@@ -40,7 +40,7 @@ object KickCommand {
             .find(eq("uuid", target.uniqueId.toString()))
             .firstOrNull()
             ?.let { MongoSerializable.fromDocument(it) as UserData? }
-            ?: UserData(target.uniqueId, mutableListOf(), mutableListOf(), mutableListOf())
+            ?: UserData.blank(target.uniqueId)
 
         userData.kicks.add(
             KickData(

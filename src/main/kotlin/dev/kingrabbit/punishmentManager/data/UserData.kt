@@ -8,5 +8,19 @@ data class UserData(
     val kicks: MutableList<KickData>,
     val mutes: MutableList<MuteData>,
     val bans: MutableList<BanData>,
+    val ips: MutableList<String>,
 ) : MongoSerializable {
+
+    companion object {
+        fun blank(uuid: UUID): UserData {
+            return UserData(
+                uuid,
+                mutableListOf(),
+                mutableListOf(),
+                mutableListOf(),
+                mutableListOf()
+            )
+        }
+    }
+
 }

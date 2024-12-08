@@ -97,7 +97,7 @@ class PunishmentManager : JavaPlugin() {
                     userData
                         .find(eq("uuid", uuid.toString()))
                         .firstOrNull())
-                val user: UserData = userDocument ?: UserData(uuid, mutableListOf(), mutableListOf(), mutableListOf())
+                val user: UserData = userDocument ?: UserData.blank(uuid)
                 val mongoMute = user.mutes.find { it.active }
                 mongoMute?.active = false
                 mongoMute?.removedReason = "Expired"
@@ -123,7 +123,7 @@ class PunishmentManager : JavaPlugin() {
                     userData
                         .find(eq("uuid", uuid.toString()))
                         .firstOrNull())
-                val user: UserData = userDocument ?: UserData(uuid, mutableListOf(), mutableListOf(), mutableListOf())
+                val user: UserData = userDocument ?: UserData.blank(uuid)
                 val mongoBan = user.bans.find { it.active }
                 mongoBan?.active = false
                 mongoBan?.removedReason = "Expired"

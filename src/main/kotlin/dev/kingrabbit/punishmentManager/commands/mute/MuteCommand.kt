@@ -29,7 +29,7 @@ object MuteCommand {
             userData
                 .find(eq("uuid", target.uniqueId.toString()))
                 .firstOrNull())
-        val user: UserData = userDocument ?: UserData(target.uniqueId, mutableListOf(), mutableListOf(), mutableListOf())
+        val user: UserData = userDocument ?: UserData.blank(target.uniqueId)
         if (user.mutes.any { it.active })
             return sender.sendMini(
                 "messages.mute.failed.already-muted".configString("<red><0> is already muted!"),
