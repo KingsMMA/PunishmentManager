@@ -20,7 +20,8 @@ repositories {
 dependencies {
     paperweight.paperDevBundle("1.21.3-R0.1-SNAPSHOT")
 
-    implementation("gg.flyte:twilight:1.1.16")
+//    implementation("gg.flyte:twilight:1.1.16")
+    implementation("com.github.KingsMMA:twilight:a8410d72986a4761c85658b2a5adfeec1160bce6")
 
     implementation("io.github.revxrsal:lamp.common:4.0.0-beta.19")
     implementation("io.github.revxrsal:lamp.bukkit:4.0.0-beta.19")
