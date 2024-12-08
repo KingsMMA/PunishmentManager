@@ -76,22 +76,29 @@ object HistoryCommand {
         }
 
         userData.bans.forEach {
-            val message: Component = if (it.duration != -1L) {
-                "messages.history.ban.temporary".configString("<gray>  - Banned by <white><0></white> at <white><1></white> for <white><2></white>. Reason: <white><3></white>.")
-                    .toMini(
-                        it.bannedBy.toName().toMini(),
-                        Date(it.bannedAt).toMini(),
-                        Duration(it.duration).toString().toMini(),
-                        (it.reason ?: "No reason provided").toMini()
-                    )
-            } else {
-                "messages.history.ban.mute".configString("<gray>  - Banned by <white><0></white> at <white><1></white>. Reason: <white><2></white>.")
-                    .toMini(
-                        it.bannedBy.toName().toMini(),
-                        Date(it.bannedAt).toMini(),
-                        (it.reason ?: "No reason provided.").toMini()
-                    )
-            }
+            val message: Component = if (!it.ip) {
+                if (it.duration != -1L) {
+                    "messages.history.ban.temporary".configString("<gray>  - Banned by <white><0></white> at <white><1></white> for <white><2></white>. Reason: <white><3></white>.")
+                        .toMini(
+                            it.bannedBy.toName().toMini(),
+                            Date(it.bannedAt).toMini(),
+                            Duration(it.duration).toString().toMini(),
+                            (it.reason ?: "No reason provided").toMini()
+                        )
+                } else {
+                    "messages.history.ban.mute".configString("<gray>  - Banned by <white><0></white> at <white><1></white>. Reason: <white><2></white>.")
+                        .toMini(
+                            it.bannedBy.toName().toMini(),
+                            Date(it.bannedAt).toMini(),
+                            (it.reason ?: "No reason provided.").toMini()
+                        )
+                }
+            } else "messages.history.history.entry.ipban".configString("<gray>  - IP banned by <white><0></white> at <white><1></white>. Reason: <white><2></white>.")
+                .toMini(
+                    it.bannedBy.toName().toMini(),
+                    Date(it.bannedAt).toMini(),
+                    (it.reason ?: "No reason provided.").toMini()
+                )
 
             if (it.active) {
                 sender.sendMessage(message)
@@ -223,10 +230,10 @@ object HistoryCommand {
     private fun openBansMenu(sender: Player, target: OfflinePlayer, userData: UserData) {
         sender.openInventory(gui("${target.name}'s bans".toMini()) {
             userData.bans.forEachIndexed { index, ban ->
-                set(index, ItemStack(Material.IRON_BARS).apply {
+                set(index, ItemStack(if (ban.ip) Material.IRON_DOOR else Material.IRON_BARS).apply {
                     if (ban.active) glow()
                     itemMeta = itemMeta.apply {
-                        itemName("<green>Banned by <white>${ban.bannedBy.toName()}".toMini())
+                        itemName("<green>${if (ban.ip) "IP b" else "B"}anned by <white>${ban.bannedBy.toName()}".toMini())
                         lores(listOf("<gray>Reason: <white>${ban.reason ?: "No reason provided"}".toMini(),
                             "<gray>At: <white>${Date(ban.bannedAt)}".toMini(),
                             "<gray>Duration: <white>${if (ban.duration == -1L) "Permanent" else Duration(ban.duration).toString()}".toMini(),

@@ -12,6 +12,7 @@ messages:
                 ban:
                     permanent: "<gray>  - Banned by <white><0></white> at <white><1></white>. Reason: <white><2></white>."
                     temporary: "<gray>  - Banned by <white><0></white> at <white><1></white> for <white><2></white>. Reason: <white><3></white>."
+                ipban: "<gray>  - IP banned by <white><0></white> at <white><1></white>. Reason: <white><2></white>."
     kick:
         failed:
             self: "<red>You cannot kick yourself!"
