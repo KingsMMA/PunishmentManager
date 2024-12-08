@@ -1,6 +1,7 @@
 package dev.kingrabbit.punishmentManager.listeners
 
 import com.mongodb.client.model.Filters.eq
+import com.mongodb.client.model.ReplaceOptions
 import dev.kingrabbit.punishmentManager.data.Duration
 import dev.kingrabbit.punishmentManager.data.UserData
 import dev.kingrabbit.punishmentManager.kotlin.MongoSerializable
@@ -8,7 +9,7 @@ import dev.kingrabbit.punishmentManager.kotlin.configString
 import dev.kingrabbit.punishmentManager.kotlin.toMini
 import dev.kingrabbit.punishmentManager.kotlin.toName
 import gg.flyte.twilight.data.MongoDB
-import org.bukkit.Bukkit
+import gg.flyte.twilight.scheduler.async
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
@@ -23,7 +24,16 @@ object LoginListener : Listener {
             .find(eq("uuid", event.uniqueId.toString()))
             .firstOrNull()
             ?.let { MongoSerializable.fromDocument(it) as UserData? }
-            ?: return
+
+        async {
+            val data = userData ?: UserData.blank(event.uniqueId)
+            if (!data.ips.contains(event.address.hostName)) {
+                data.ips.add(event.address.hostName)
+                MongoDB.collection("users").replaceOne(eq("uuid", event.uniqueId.toString()), data.toDocument(), ReplaceOptions().upsert(true))
+            }
+        }
+
+        if (userData == null) return
 
         val activeBan = userData.bans.find { it.active }
             ?: return
